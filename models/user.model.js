@@ -42,6 +42,11 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// method to compare plain password with hash value
+userSchema.methods.comparePass = async function(plainPassword){
+  return await bcrypt.compare(plainPassword, this.password)
+}
+
 const User = model("User", userSchema);
 
 export default User
